@@ -6,9 +6,12 @@ import ActivityChart from '@/components/Dashboard/ActivityChart';
 import GoalProgress from '@/components/Dashboard/GoalProgress';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const isMobile = useIsMobile();
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   
   return (
     <div className="min-h-screen bg-background">
@@ -16,23 +19,46 @@ const Index = () => {
       
       <main className="container pb-20">
         <div className="py-6 md:py-10 space-y-8">
-          {/* Hero section */}
-          <div className="hero-gradient rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center mb-6">
-            <div className="text-left mb-6 md:mb-0">
+          {/* Hero section with background video */}
+          <div className="hero-gradient rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-center mb-6 relative overflow-hidden">
+            <div className="absolute inset-0 z-0 overflow-hidden">
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="object-cover w-full h-full opacity-20"
+                onLoadedData={() => setIsVideoLoaded(true)}
+              >
+                <source src="https://player.vimeo.com/external/363625327.sd.mp4?s=d3f95306e4b8d8eff4dee96cc1fc7e1985d07dca&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            
+            <div className="text-left mb-6 md:mb-0 z-10 relative">
               <h1 className="text-2xl md:text-3xl font-bold mb-3">Welcome to FitTrack</h1>
               <p className="text-muted-foreground max-w-md mb-4">
                 Track your fitness journey, set goals, and watch your progress. Let's build healthy habits together.
               </p>
-              <Button className="flex items-center">
-                <Plus className="mr-2 h-4 w-4" /> Log Today's Workout
-              </Button>
+              <div className="flex gap-3">
+                <Button className="flex items-center">
+                  <Plus className="mr-2 h-4 w-4" /> Log Today's Workout
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link to="/login" className="flex items-center">
+                    Sign In
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <div className="h-40 w-40 md:h-48 md:w-48 relative overflow-hidden">
-              <img 
-                src="https://images.pexels.com/photos/3764013/pexels-photo-3764013.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                alt="Fitness"
-                className="object-cover w-full h-full rounded-2xl"
-              />
+            <div className="h-40 w-40 md:h-48 md:w-48 relative overflow-hidden z-10">
+              <div className="animate-pulse-light">
+                <img 
+                  src="https://images.pexels.com/photos/3764013/pexels-photo-3764013.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                  alt="Fitness"
+                  className="object-cover w-full h-full rounded-2xl"
+                />
+              </div>
             </div>
           </div>
           
@@ -52,7 +78,7 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Recent Workouts */}
+          {/* Recent Workouts - Removed the overlay on images */}
           <section className="space-y-4">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold">Recent Workouts</h2>
@@ -62,12 +88,12 @@ const Index = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              <div className="workout-card overflow-hidden">
-                <div className="h-32 bg-gradient-to-r from-primary/20 to-secondary/20 relative">
+              <div className="workout-card overflow-hidden group hover:scale-[1.02] transition-all">
+                <div className="h-32 relative">
                   <img 
                     src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=600" 
                     alt="Upper Body Workout"
-                    className="w-full h-full object-cover mix-blend-overlay"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded text-xs">
                     Yesterday
@@ -83,12 +109,12 @@ const Index = () => {
                 </div>
               </div>
               
-              <div className="workout-card overflow-hidden">
-                <div className="h-32 bg-gradient-to-r from-secondary/20 to-accent/20 relative">
+              <div className="workout-card overflow-hidden group hover:scale-[1.02] transition-all">
+                <div className="h-32 relative">
                   <img 
                     src="https://images.pexels.com/photos/2827392/pexels-photo-2827392.jpeg?auto=compress&cs=tinysrgb&w=600" 
                     alt="Cardio Workout"
-                    className="w-full h-full object-cover mix-blend-overlay"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded text-xs">
                     2 days ago
@@ -104,12 +130,12 @@ const Index = () => {
                 </div>
               </div>
               
-              <div className="workout-card overflow-hidden">
-                <div className="h-32 bg-gradient-to-r from-accent/20 to-fitness-purple/20 relative">
+              <div className="workout-card overflow-hidden group hover:scale-[1.02] transition-all">
+                <div className="h-32 relative">
                   <img 
                     src="https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=600" 
                     alt="Leg Workout"
-                    className="w-full h-full object-cover mix-blend-overlay"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded text-xs">
                     3 days ago
