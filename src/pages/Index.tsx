@@ -27,12 +27,17 @@ const Index = () => {
                 loop 
                 muted 
                 playsInline
-                className="object-cover w-full h-full opacity-20"
+                className="object-cover w-full h-full opacity-30"
                 onLoadedData={() => setIsVideoLoaded(true)}
               >
-                <source src="https://player.vimeo.com/external/363625327.sd.mp4?s=d3f95306e4b8d8eff4dee96cc1fc7e1985d07dca&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
+                <source src="https://player.vimeo.com/progressive_redirect/playback/363625327/rendition/720p/file.mp4?loc=external&signature=5a5f6ca6d7fbbce5b0ffdfe2d9daf9c1cc9bfa00b06d8b1ac7d2c8ff2b19182e" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              {!isVideoLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
             </div>
             
             <div className="text-left mb-6 md:mb-0 z-10 relative">
@@ -78,7 +83,7 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Recent Workouts - Removed the overlay on images */}
+          {/* Recent Workouts */}
           <section className="space-y-4">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold">Recent Workouts</h2>
