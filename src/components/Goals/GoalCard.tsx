@@ -1,6 +1,5 @@
 
 import { Circle, X } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -47,6 +46,14 @@ const categoryBorder = {
   consistency: 'border-fitness-purple/20',
 };
 
+const categoryProgressBg = {
+  cardio: 'bg-primary',
+  strength: 'bg-secondary',
+  flexibility: 'bg-accent',
+  weight: 'bg-fitness-teal',
+  consistency: 'bg-fitness-purple',
+};
+
 const GoalCard = ({
   id,
   title,
@@ -63,6 +70,8 @@ const GoalCard = ({
   );
   
   const isCompleted = progress >= 100;
+  const progressColor = isCompleted ? 'bg-green-500' : categoryProgressBg[category];
+  const progressBgColor = isCompleted ? 'bg-green-100' : `bg-${category}-100`;
 
   return (
     <div 
@@ -101,21 +110,12 @@ const GoalCard = ({
             <span className="text-sm text-muted-foreground">Progress</span>
             <span className="text-sm font-medium">{progress}%</span>
           </div>
-          <Progress 
-            value={progress} 
-            className={cn(
-              "h-2",
-              isCompleted ? "bg-green-100" : `bg-${category}-100`
-            )}
-            indicatorClassName={
-              isCompleted ? "bg-green-500" : 
-              category === 'cardio' ? "bg-primary" : 
-              category === 'strength' ? "bg-secondary" : 
-              category === 'flexibility' ? "bg-accent" : 
-              category === 'weight' ? "bg-fitness-teal" : 
-              "bg-fitness-purple"
-            }
-          />
+          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+            <div 
+              className={cn("h-full rounded-full", progressColor)}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
         
         <div className="flex justify-between items-center">

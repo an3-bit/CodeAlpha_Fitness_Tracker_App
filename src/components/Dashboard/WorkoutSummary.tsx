@@ -1,5 +1,5 @@
 
-import { Dumbbell, Heart, Stopwatch, Trophy } from 'lucide-react';
+import { Dumbbell, Heart, Timer, Trophy } from 'lucide-react';
 
 const WorkoutSummary = () => {
   return (
@@ -29,7 +29,7 @@ const WorkoutSummary = () => {
             <p className="text-xs text-green-500 mt-1">+120 this week</p>
           </div>
           <div className="bg-secondary/10 p-3 rounded-full">
-            <Stopwatch className="w-5 h-5 text-secondary" />
+            <Timer className="w-5 h-5 text-secondary" />
           </div>
         </div>
         <div className="w-full h-1 bg-muted mt-4 rounded-full overflow-hidden">

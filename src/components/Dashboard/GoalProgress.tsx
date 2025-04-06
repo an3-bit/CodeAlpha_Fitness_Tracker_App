@@ -48,16 +48,20 @@ const GoalProgress = () => {
           const percentage = Math.round((goal.progress / goal.total) * 100);
           let statusColor = "";
           let bgColor = "";
+          let progressColor = "";
 
           if (goal.category === "cardio") {
             statusColor = "text-primary";
             bgColor = "bg-primary/10";
+            progressColor = "bg-primary";
           } else if (goal.category === "strength") {
             statusColor = "text-secondary";
             bgColor = "bg-secondary/10";
+            progressColor = "bg-secondary";
           } else {
             statusColor = "text-fitness-purple";
             bgColor = "bg-fitness-purple/10";
+            progressColor = "bg-fitness-purple";
           }
 
           return (
@@ -85,18 +89,12 @@ const GoalProgress = () => {
                   <p className="text-xs text-muted-foreground">{percentage}%</p>
                 </div>
               </div>
-              <Progress 
-                value={percentage} 
-                className={cn(
-                  "h-1.5", 
-                  goal.category === "cardio" ? "bg-primary/20" : 
-                  goal.category === "strength" ? "bg-secondary/20" : "bg-fitness-purple/20"
-                )}
-                indicatorClassName={
-                  goal.category === "cardio" ? "bg-primary" : 
-                  goal.category === "strength" ? "bg-secondary" : "bg-fitness-purple"
-                }
-              />
+              <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
+                <div 
+                  className={cn("h-full rounded-full", progressColor)} 
+                  style={{ width: `${percentage}%` }}
+                />
+              </div>
             </div>
           );
         })}
